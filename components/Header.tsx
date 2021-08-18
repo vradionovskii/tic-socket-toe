@@ -1,11 +1,10 @@
 import Link from "next/link";
 
 interface Props {
-  children?: React.ReactNode,
   currentPage: string;
 }
 
-const Header: React.FC = ({ currentPage }: Props) => {
+const Header: React.FC<Props> = ({ currentPage }: Props) => {
   return (
     <div className="relative z-50 pt-6 mx-auto color-invert max-w-[100rem] px-[5vw] font-medium">
       <div className="flex items-center justify-between page-container">
@@ -24,5 +23,5 @@ const Header: React.FC = ({ currentPage }: Props) => {
       </div>
     </div>
   );
-}
-export default  Header
+};
+export default Header;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   mode: "jit",
@@ -5,7 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
-          "SK Concretica",
+          "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",

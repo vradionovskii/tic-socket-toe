@@ -1,22 +1,21 @@
 import SmartOutline from "./utils/SmartOutline";
-import SEO from "./utils/seo";
 import Header from "./Header";
+import SEO from "./utils/seo";
 type Props = {
-  children?: ReactNode;
   title?: string;
+  children?: React.ReactNode;
+  currentPage: string;
 };
 
-const Layout = ({
-  children,
-  currentPage,
-  title = "This is the default title",
-}: Props) => (
-  <>
-    <SmartOutline />
-    <Header currentPage={currentPage} />
-    <SEO title={title} />
-    {children}
-  </>
-);
+const Layout: React.FC<Props> = ({ children, title, currentPage }: Props) => {
+  return (
+    <>
+      <SmartOutline />
+      <Header currentPage={currentPage} />
+      <SEO title={title} />
+      {children}
+    </>
+  );
+};
 
 export default Layout;

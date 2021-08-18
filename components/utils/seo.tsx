@@ -1,7 +1,19 @@
 import Head from "next/head";
 
-export default function SEO({ title }) {
-  const seo = {
+interface Props {
+  title: string;
+}
+
+interface SEOObject {
+  siteTitle: string;
+  siteDescription: string;
+  URL: string;
+  socialCover: string;
+  keywords: string;
+}
+
+const SEO: React.FC<Props> = ({ title }: Props) => {
+  const seo: SEOObject = {
     siteTitle: "Tic Socket Toe",
     siteDescription: "",
     URL: "",
@@ -19,7 +31,7 @@ export default function SEO({ title }) {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={seo.siteTitle} />
         <meta property="og:url" content={seo.URL} />
-        <meta property="og:title" content={seo.title} />
+        <meta property="og:title" content={title} />
         <meta
           property="og:image"
           content={
@@ -33,7 +45,7 @@ export default function SEO({ title }) {
         <meta property="og:image:height" content="498" />
 
         {/* Twitter */}
-        <meta property="twitter:title" content={seo.title} />
+        <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={seo.siteDescription} />
         <meta property="twitter:card" content="summary" />
         <meta
@@ -142,4 +154,5 @@ export default function SEO({ title }) {
       </Head>
     </>
   );
-}
+};
+export default SEO;

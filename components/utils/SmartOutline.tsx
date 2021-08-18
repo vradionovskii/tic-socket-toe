@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function SmartOutline() {
+const SmartOutline: React.FC = () => {
   useEffect(() => {
     function handleFirstTab(e) {
       if (e.keyCode === 9) {
@@ -17,7 +17,7 @@ function SmartOutline() {
   }, []);
   return (
     <>
-      <style jsx global>{`
+      <style>{`
         body:not(.user-is-tabbing) button:focus,
         body:not(.user-is-tabbing) input:focus,
         body:not(.user-is-tabbing) select:focus,
@@ -27,6 +27,6 @@ function SmartOutline() {
       `}</style>
     </>
   );
-}
+};
 
 export default SmartOutline;

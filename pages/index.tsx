@@ -1,17 +1,11 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 
-const IndexPage = () => {
+const IndexPage: React.FC = () => {
   const router = useRouter();
   return (
     <Layout currentPage={router.route} title="Home">
-      <h1>Hello Next.js 👋</h1>
-      <p>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </p>
+      <h1>Welcome!</h1>
     </Layout>
   );
 };
