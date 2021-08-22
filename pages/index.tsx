@@ -8,6 +8,10 @@ const IndexPage: React.FC = () => {
   const initialState = [null, null, null, null, null, null, null, null, null];
   const [state, setstate] = useState([...initialState]);
 
+  function getHashArray() {
+    return window.location.hash.slice(1).split("&");
+  }
+
   const socket = io("http://localhost:3001", { transports: ["websocket"] });
 
   socket.on("updateState", (message) => {
@@ -17,7 +21,11 @@ const IndexPage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (window.location.hash === "" && state === initialState) {
+    if (
+      window.location.hash === "" &&
+      JSON.stringify(state) === JSON.stringify(initialState)
+    ) {
+      console.log("!");
       socket.on("message", (message) => {
         window.location.hash = message + "&x";
         socket.emit("joinRoom", {
@@ -27,14 +35,14 @@ const IndexPage: React.FC = () => {
       });
     } else {
       socket.emit("joinRoom", {
-        id: window.location.hash.slice(1).split("&")[0],
+        id: getHashArray()[0],
         data: initialState,
       });
       if (window.location.hash.indexOf("&") === -1) {
         window.location.hash += "&o";
       }
     }
-    symbol.current = window.location.hash.slice(1).split("&")[1];
+    symbol.current = getHashArray()[1];
   }, []);
 
   function updateBoard(i) {
@@ -42,7 +50,7 @@ const IndexPage: React.FC = () => {
     temp[i] = symbol.current === "x" ? true : false;
     setstate([...temp]);
     socket.emit("updateState", {
-      id: window.location.hash.slice(1).split("&")[0],
+      id: getHashArray()[0],
       data: state,
     });
   }
@@ -51,13 +59,7 @@ const IndexPage: React.FC = () => {
 
   return (
     <Layout currentPage={router.route} title="home">
-      <div
-        className={`${
-          state.filter((i) => i === symbol.current).length % 2 === 0
-            ? "pointer-events-all"
-            : "pointer-events-"
-        } grid max-w-sm grid-cols-3 gap-8 mx-auto`}
-      >
+      <div className={`grid max-w-sm grid-cols-3 gap-8 mx-auto`}>
         {state.map((mark, i) => (
           <button
             className={`${mark ? "pointer-events-none" : ""} p-4 bg-gray-400`}

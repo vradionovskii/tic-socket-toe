@@ -36,6 +36,6 @@ io.on("connection", (socket) => {
     rooms[rooms.findIndex((i) => i.id === message.id)].data = message.data;
     console.log(rooms);
     console.log("_______________");
-    io.sockets.in(message[0]).emit("updateState", message.data);
+    io.sockets.in(message.id).emit("updateState", message.data);
   });
 });
