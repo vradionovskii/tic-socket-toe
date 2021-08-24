@@ -3,7 +3,11 @@ import Layout from "../components/Layout";
 import { io } from "socket.io-client";
 import { useEffect, useRef } from "react";
 
-const IndexPage: React.FC = () => {
+interface Props {
+  data: Record<string, unknown>;
+}
+
+const IndexPage: React.FC<Props> = ({ data }: Props) => {
   const router = useRouter();
   const startButton = useRef();
 
@@ -25,14 +29,14 @@ const IndexPage: React.FC = () => {
   }
 
   return (
-    <Layout currentPage={router.asPath} title="Home">
+    <Layout currentPage={router.asPath} title={`${data.title}`}>
       <div className="flex items-center justify-center h-screen">
         <button
           ref={startButton}
           className="button-theme"
           onClick={handleClick}
         >
-          Start Game
+          {data.buttonText}
         </button>
       </div>
     </Layout>
@@ -40,3 +44,14 @@ const IndexPage: React.FC = () => {
 };
 
 export default IndexPage;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getStaticProps({ locale }) {
+  const data = await import(`../text/${locale}/homepage.md`);
+
+  return {
+    props: {
+      data: data.default.attributes,
+    },
+  };
+}

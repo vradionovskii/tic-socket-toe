@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useCopyToClipboard } from "react-use";
 
-export const ShareButton: React.FC = () => {
+interface Props {
+  data: Record<string, unknown>;
+}
+
+export const ShareButton: React.FC<Props> = ({ data }: Props) => {
   const [state, copyToClipboard] = useCopyToClipboard();
   const [hasCopied, setHasCopied] = useState(false);
   const getLink = () => {
@@ -31,13 +35,7 @@ export const ShareButton: React.FC = () => {
       onClick={() => handleClick()}
       className="px-4 py-1 mt-4 border-2 border-black rounded-md"
     >
-      {!hasCopied ? (
-        "Share Link"
-      ) : state.error ? (
-        <p>Unable to copy</p>
-      ) : (
-        state.value && <p>Copied!</p>
-      )}
+      {!hasCopied ? data.share : state.error ? data.error : data.copied}
     </button>
   );
 };

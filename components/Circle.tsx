@@ -13,13 +13,7 @@ export const Circle: React.FC = () => {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M7 13A6 6 0 107 1a6 6 0 000 12z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <circle strokeWidth="1.5" cx="11" cy="11" r="7" />
     </motion.svg>
   );
 };

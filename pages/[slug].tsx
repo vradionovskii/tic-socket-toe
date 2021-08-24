@@ -7,7 +7,11 @@ import { GameOver } from "../components/GameOver";
 import { Cross } from "../components/Cross";
 import { ShareButton } from "../components/ShareButton";
 
-const IndexPage: React.FC = () => {
+interface Props {
+  data: any;
+}
+
+const IndexPage: React.FC<Props> = ({ data }: Props) => {
   const router = useRouter();
   const isPlayerX = useRef(false);
   const initialState = [null, null, null, null, null, null, null, null, null];
@@ -15,6 +19,15 @@ const IndexPage: React.FC = () => {
   const [whoWon, setWhoWon] = useState("");
   const [isMyTurn, setIsMyTurn] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+
+  data.copy = { error: data.error, copied: data.copied, share: data.share };
+  data.whoWon = {
+    draw: data.draw,
+    gameOver: data.gameOver,
+    startOver: data.startOver,
+    x: data.x,
+    o: data.o,
+  };
 
   const socket = io("https://asidefd.herokuapp.com", {
     transports: ["websocket"],
@@ -75,7 +88,6 @@ const IndexPage: React.FC = () => {
       setIsMyTurn(state.filter((i) => i !== null).length % 2 === 1);
     }
   }
-
   useEffect(() => {
     socket.emit("joinRoom", {
       id: window.location.pathname.split("/").pop(),
@@ -91,12 +103,14 @@ const IndexPage: React.FC = () => {
     checkIfGameIsOver();
     checkWhoseTurn();
   }, [state]);
-
   return (
-    <Layout currentPage={router.asPath} title="home">
+    <Layout
+      currentPage={router.asPath}
+      title={`${data.title}${isPlayerX ? "X" : "O"}`}
+    >
       <div className="flex flex-col items-center justify-center h-screen ">
         <p className="pb-4 text-xl font-bold">
-          {isMyTurn ? "Your Turn" : "Opponents Turn"}
+          {isMyTurn ? data.yourTurn : data.opponentsTurn}
         </p>
         <div
           id="board"
@@ -118,11 +132,28 @@ const IndexPage: React.FC = () => {
             </button>
           ))}
         </div>
-        <ShareButton />
-        {isGameOver && <GameOver whoWon={whoWon} onClick={() => resetGame()} />}
+        <ShareButton data={data.copy} />
+        {isGameOver && (
+          <GameOver
+            whoWon={whoWon}
+            whoWonText={data.whoWon}
+            onClick={() => resetGame()}
+          />
+        )}
       </div>
     </Layout>
   );
 };
 
 export default IndexPage;
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function getServerSideProps({ locale }) {
+  const data = await import(`../text/${locale}/slug.md`);
+
+  return {
+    props: {
+      data: data.default.attributes,
+    },
+  };
+}
