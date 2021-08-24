@@ -6,7 +6,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ currentPage }: Props) => {
   return (
-    <div className="relative z-50 pt-6 mx-auto color-invert max-w-[100rem] px-[5vw] font-medium">
+    <div className="fixed top-0 w-full z-50 pt-6 mx-auto color-invert max-w-[100rem] px-[5vw] font-medium">
       <div className="flex items-center justify-between page-container">
         <Link href="/">
           <a className="flex-1 text-xl">Tic Socket Toe</a>

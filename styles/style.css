@@ -47,3 +47,47 @@
   src: url("../fonts/Inter-Bold.woff2") format("woff2"),
     url("../fonts/Inter-Bold.woff") format("woff");
 }
+
+.center-xy {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+#board .square:nth-child(1) {
+  border-right: 0.125rem solid black;
+  border-bottom: 0.125rem solid black;
+  border-top-left-radius: 0.625rem;
+}
+#board .square:nth-child(2) {
+  border-right: 0.125rem solid black;
+  border-bottom: 0.125rem solid black;
+}
+#board .square:nth-child(3) {
+  border-top-right-radius: 0.625rem;
+  border-bottom: 0.125rem solid black;
+}
+#board .square:nth-child(4) {
+  border-right: 0.125rem solid black;
+  border-bottom: 0.125rem solid black;
+}
+#board .square:nth-child(5) {
+  border-right: 0.125rem solid black;
+  border-bottom: 0.125rem solid black;
+}
+#board .square:nth-child(6) {
+  border-bottom: 0.125rem solid black;
+}
+#board .square:nth-child(7) {
+  border-right: 0.125rem solid black;
+  border-bottom-left-radius: 0.625rem;
+}
+#board .square:nth-child(8) {
+  border-right: 0.125rem solid black;
+}
+#board .square:nth-child(9) {
+  border-bottom-right-radius: 0.625rem;
+}
+.button-theme {
+  @apply px-6 py-2 font-bold text-white transition-colors duration-200 bg-indigo-600 rounded-md hover:bg-indigo-500;
+}
