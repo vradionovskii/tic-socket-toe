@@ -118,7 +118,7 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
   return (
     <Layout
       currentPage={router.asPath}
-      title={`${data.title}${isPlayerX ? "X" : "O"}`}
+      title={`${data.title}${isPlayerX.current ? "X" : "O"}`}
     >
       <div className="flex flex-col items-center justify-center h-screen ">
         <p className="pb-4 text-xl font-bold">
@@ -134,7 +134,7 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
             <button
               className={`${
                 mark !== null ? "pointer-events-none" : ""
-              } p-10 bg-gray-400 square`}
+              } md:p-10 p-6 bg-gray-400 square`}
               onClick={() => updateBoard(i)}
               key={i}
             >
