@@ -50,8 +50,7 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
     if (state.findIndex((i) => i === null) === -1) {
       setIsGameOver(true);
       setWhoWon("Draw");
-    }
-    if (
+    } else if (
       (state[0] !== null && state[0] === state[1] && state[1] === state[2]) ||
       (state[3] !== null && state[3] === state[4] && state[4] === state[5]) ||
       (state[6] !== null && state[6] === state[7] && state[7] === state[8]) ||
@@ -100,8 +99,8 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
   }, []);
 
   useEffect(() => {
-    checkIfGameIsOver();
     checkWhoseTurn();
+    checkIfGameIsOver();
   }, [state]);
   return (
     <Layout
