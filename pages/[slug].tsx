@@ -47,10 +47,7 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
   }
 
   function checkIfGameIsOver() {
-    if (state.findIndex((i) => i === null) === -1) {
-      setIsGameOver(true);
-      setWhoWon("Draw");
-    } else if (
+    if (
       (state[0] !== null && state[0] === state[1] && state[1] === state[2]) ||
       (state[3] !== null && state[3] === state[4] && state[4] === state[5]) ||
       (state[6] !== null && state[6] === state[7] && state[7] === state[8]) ||
@@ -62,12 +59,18 @@ const IndexPage: React.FC<Props> = ({ data }: Props) => {
     ) {
       setIsGameOver(true);
       if (isPlayerX.current && !isMyTurn) {
-        setWhoWon("X");
-      } else if (!isPlayerX.current && isMyTurn) {
-        setWhoWon("X");
-      } else {
         setWhoWon("O");
+      } else if (!isPlayerX.current && isMyTurn) {
+        setWhoWon("O");
+      } else {
+        setWhoWon("X");
       }
+      return;
+    }
+
+    if (state.findIndex((i) => i === null) === -1) {
+      setIsGameOver(true);
+      setWhoWon("Draw");
     } else {
       setIsGameOver(false);
     }
