@@ -9,13 +9,13 @@ interface Props {
 
 const IndexPage: React.FC<Props> = ({ data }: Props) => {
   const router = useRouter();
-  const startButton = useRef();
+  const startButton = useRef<HTMLButtonElement>(null);
+  const id = useRef<string>();
 
   const socket = io("https://asidefd.herokuapp.com", {
     transports: ["websocket"],
   });
 
-  const id = useRef();
   useEffect(() => {
     socket.on("message", (message) => {
       id.current = message;

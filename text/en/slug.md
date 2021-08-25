@@ -11,5 +11,5 @@ whoWonText:
 	o: O Won!
 	draw: Draw!
 	gameOver: Game Over
-	startOver: Start over
+	startOver: New game
 ---

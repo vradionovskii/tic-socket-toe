@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCopyToClipboard } from "react-use";
+import { isMobile } from "react-device-detect";
 
 interface Props {
   data: Record<string, unknown>;
@@ -7,13 +8,13 @@ interface Props {
 
 export const ShareButton: React.FC<Props> = ({ data }: Props) => {
   const [state, copyToClipboard] = useCopyToClipboard();
-  const [hasCopied, setHasCopied] = useState(false);
+  const [hasCopied, setHasCopied] = useState<boolean>(false);
   const getLink = () => {
     return window.location.origin + window.location.pathname + "#o";
   };
 
   function handleClick() {
-    if (navigator.share) {
+    if (navigator.share && isMobile) {
       navigator
         .share({
           title: "Tic Socket Toe",

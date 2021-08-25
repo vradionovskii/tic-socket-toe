@@ -13,12 +13,22 @@ interface Props {
 
 const IndexPage: React.FC<Props> = ({ data }: Props) => {
   const router = useRouter();
-  const isPlayerX = useRef(false);
-  const initialState = [null, null, null, null, null, null, null, null, null];
-  const [state, setState] = useState([...initialState]);
-  const [whoWon, setWhoWon] = useState("");
-  const [isMyTurn, setIsMyTurn] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const isPlayerX = useRef<boolean>(false);
+  const initialState: null | boolean[] = [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ];
+  const [state, setState] = useState<null | boolean[]>([...initialState]);
+  const [whoWon, setWhoWon] = useState<string>("");
+  const [isMyTurn, setIsMyTurn] = useState<boolean>(false);
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
 
   data.copy = { error: data.error, copied: data.copied, share: data.share };
   data.whoWon = {
